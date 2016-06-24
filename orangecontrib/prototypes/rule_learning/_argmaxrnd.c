@@ -1051,6 +1051,9 @@ typedef struct {
 static Py_ssize_t __Pyx_zeros[] = {0, 0, 0, 0, 0, 0, 0, 0};
 static Py_ssize_t __Pyx_minusones[] = {-1, -1, -1, -1, -1, -1, -1, -1};
 
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_Py_intptr_t(Py_intptr_t value);
+
 /* None.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1225,10 +1228,10 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, cha
 
 /* Module declarations from 'orangecontrib.prototypes.rule_learning._argmaxrnd' */
 static CYTHON_INLINE int __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_isnan(__pyx_t_5numpy_float_t); /*proto*/
-static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_argmaxrnd_int(PyArrayObject *); /*proto*/
 static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_argmaxrnd_float(PyArrayObject *); /*proto*/
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_int_t = { "int_t", NULL, sizeof(__pyx_t_5numpy_int_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_int_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_int_t), 0 };
+static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_argmaxrnd_int(PyArrayObject *); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_float_t = { "float_t", NULL, sizeof(__pyx_t_5numpy_float_t), { 0 }, 0, 'R', 0, 0 };
+static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_int_t = { "int_t", NULL, sizeof(__pyx_t_5numpy_int_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_int_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_int_t), 0 };
 #define __Pyx_MODULE_NAME "orangecontrib.prototypes.rule_learning._argmaxrnd"
 int __pyx_module_is_main_orangecontrib__prototypes__rule_learning___argmaxrnd = 0;
 
@@ -1257,15 +1260,15 @@ static const char __pyx_k_random_seed[] = "random_seed";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_dtype_not_supported[] = "dtype {} not supported.";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
+static const char __pyx_k_1D_array_of_shape_n_is_expected[] = "1D array of shape (n,) is expected.";
 static const char __pyx_k_Users_matevzkren_Desktop_gsoc_o[] = "/Users/matevzkren/Desktop/gsoc/orange3-prototypes/orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
-static const char __pyx_k_A_1D_array_of_shape_n_is_expecte[] = "A 1D array of shape (n,) is expected.";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_orangecontrib_prototypes_rule_le[] = "orangecontrib.prototypes.rule_learning._argmaxrnd";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static PyObject *__pyx_kp_s_A_1D_array_of_shape_n_is_expecte;
+static PyObject *__pyx_kp_s_1D_array_of_shape_n_is_expected;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
@@ -1347,7 +1350,7 @@ static CYTHON_INLINE int __pyx_f_13orangecontrib_10prototypes_13rule_learning_10
 /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":12
  * 
  * 
- * def argmaxrnd(np.ndarray vec not None, object random_seed=None):             # <<<<<<<<<<<<<<
+ * def argmaxrnd(np.ndarray vec, object random_seed=None):             # <<<<<<<<<<<<<<
  * 
  *     """
  */
@@ -1408,7 +1411,7 @@ static PyObject *__pyx_pw_13orangecontrib_10prototypes_13rule_learning_10_argmax
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vec), __pyx_ptype_5numpy_ndarray, 0, "vec", 0))) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_vec), __pyx_ptype_5numpy_ndarray, 1, "vec", 0))) __PYX_ERR(0, 12, __pyx_L1_error)
   __pyx_r = __pyx_pf_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_argmaxrnd(__pyx_self, __pyx_v_vec, __pyx_v_random_seed);
 
   /* function exit code */
@@ -1440,7 +1443,7 @@ static PyObject *__pyx_pf_13orangecontrib_10prototypes_13rule_learning_10_argmax
  *     """
  * 
  *     if vec.ndim != 1:             # <<<<<<<<<<<<<<
- *         raise ValueError("A 1D array of shape (n,) is expected.")
+ *         raise ValueError("1D array of shape (n,) is expected.")
  * 
  */
   __pyx_t_1 = ((__pyx_v_vec->nd != 1) != 0);
@@ -1449,7 +1452,7 @@ static PyObject *__pyx_pf_13orangecontrib_10prototypes_13rule_learning_10_argmax
     /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":32
  * 
  *     if vec.ndim != 1:
- *         raise ValueError("A 1D array of shape (n,) is expected.")             # <<<<<<<<<<<<<<
+ *         raise ValueError("1D array of shape (n,) is expected.")             # <<<<<<<<<<<<<<
  * 
  *     if random_seed is not None:
  */
@@ -1463,13 +1466,13 @@ static PyObject *__pyx_pf_13orangecontrib_10prototypes_13rule_learning_10_argmax
  *     """
  * 
  *     if vec.ndim != 1:             # <<<<<<<<<<<<<<
- *         raise ValueError("A 1D array of shape (n,) is expected.")
+ *         raise ValueError("1D array of shape (n,) is expected.")
  * 
  */
   }
 
   /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":34
- *         raise ValueError("A 1D array of shape (n,) is expected.")
+ *         raise ValueError("1D array of shape (n,) is expected.")
  * 
  *     if random_seed is not None:             # <<<<<<<<<<<<<<
  *         if random_seed == -1:
@@ -1606,7 +1609,7 @@ static PyObject *__pyx_pf_13orangecontrib_10prototypes_13rule_learning_10_argmax
     __pyx_L5:;
 
     /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":34
- *         raise ValueError("A 1D array of shape (n,) is expected.")
+ *         raise ValueError("1D array of shape (n,) is expected.")
  * 
  *     if random_seed is not None:             # <<<<<<<<<<<<<<
  *         if random_seed == -1:
@@ -1760,7 +1763,7 @@ static PyObject *__pyx_pf_13orangecontrib_10prototypes_13rule_learning_10_argmax
   /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":12
  * 
  * 
- * def argmaxrnd(np.ndarray vec not None, object random_seed=None):             # <<<<<<<<<<<<<<
+ * def argmaxrnd(np.ndarray vec, object random_seed=None):             # <<<<<<<<<<<<<<
  * 
  *     """
  */
@@ -1785,9 +1788,242 @@ static PyObject *__pyx_pf_13orangecontrib_10prototypes_13rule_learning_10_argmax
 /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":52
  * @boundscheck(False)
  * @cdivision(True)
+ * cdef Py_ssize_t argmaxrnd_float(np.ndarray[np.float_t, ndim=1] vec):             # <<<<<<<<<<<<<<
+ *     cdef:
+ *         Py_ssize_t i, m_i
+ */
+
+static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_argmaxrnd_float(PyArrayObject *__pyx_v_vec) {
+  Py_ssize_t __pyx_v_i;
+  Py_ssize_t __pyx_v_m_i;
+  int __pyx_v_c;
+  __pyx_t_5numpy_float_t __pyx_v_curr;
+  __pyx_t_5numpy_float_t __pyx_v_m;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_vec;
+  __Pyx_Buffer __pyx_pybuffer_vec;
+  Py_ssize_t __pyx_r;
+  __Pyx_RefNannyDeclarations
+  npy_intp __pyx_t_1;
+  Py_ssize_t __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  __Pyx_RefNannySetupContext("argmaxrnd_float", 0);
+  __pyx_pybuffer_vec.pybuffer.buf = NULL;
+  __pyx_pybuffer_vec.refcount = 0;
+  __pyx_pybuffernd_vec.data = NULL;
+  __pyx_pybuffernd_vec.rcbuffer = &__pyx_pybuffer_vec;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vec.rcbuffer->pybuffer, (PyObject*)__pyx_v_vec, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_vec.diminfo[0].strides = __pyx_pybuffernd_vec.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vec.diminfo[0].shape = __pyx_pybuffernd_vec.rcbuffer->pybuffer.shape[0];
+
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":55
+ *     cdef:
+ *         Py_ssize_t i, m_i
+ *         int c = 0             # <<<<<<<<<<<<<<
+ *         np.float_t curr, m
+ * 
+ */
+  __pyx_v_c = 0;
+
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":58
+ *         np.float_t curr, m
+ * 
+ *     for i in range(vec.shape[0]):             # <<<<<<<<<<<<<<
+ *         curr = vec[i]
+ *         if not isnan(curr):
+ */
+  __pyx_t_1 = (__pyx_v_vec->dimensions[0]);
+  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
+    __pyx_v_i = __pyx_t_2;
+
+    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":59
+ * 
+ *     for i in range(vec.shape[0]):
+ *         curr = vec[i]             # <<<<<<<<<<<<<<
+ *         if not isnan(curr):
+ *             if curr > m or c == 0:
+ */
+    __pyx_t_3 = __pyx_v_i;
+    if (__pyx_t_3 < 0) __pyx_t_3 += __pyx_pybuffernd_vec.diminfo[0].shape;
+    __pyx_v_curr = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_float_t *, __pyx_pybuffernd_vec.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_vec.diminfo[0].strides));
+
+    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":60
+ *     for i in range(vec.shape[0]):
+ *         curr = vec[i]
+ *         if not isnan(curr):             # <<<<<<<<<<<<<<
+ *             if curr > m or c == 0:
+ *                 m = curr
+ */
+    __pyx_t_4 = ((!(__pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_isnan(__pyx_v_curr) != 0)) != 0);
+    if (__pyx_t_4) {
+
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":61
+ *         curr = vec[i]
+ *         if not isnan(curr):
+ *             if curr > m or c == 0:             # <<<<<<<<<<<<<<
+ *                 m = curr
+ *                 c = 1
+ */
+      __pyx_t_5 = ((__pyx_v_curr > __pyx_v_m) != 0);
+      if (!__pyx_t_5) {
+      } else {
+        __pyx_t_4 = __pyx_t_5;
+        goto __pyx_L7_bool_binop_done;
+      }
+      __pyx_t_5 = ((__pyx_v_c == 0) != 0);
+      __pyx_t_4 = __pyx_t_5;
+      __pyx_L7_bool_binop_done:;
+      if (__pyx_t_4) {
+
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":62
+ *         if not isnan(curr):
+ *             if curr > m or c == 0:
+ *                 m = curr             # <<<<<<<<<<<<<<
+ *                 c = 1
+ *                 m_i = i
+ */
+        __pyx_v_m = __pyx_v_curr;
+
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":63
+ *             if curr > m or c == 0:
+ *                 m = curr
+ *                 c = 1             # <<<<<<<<<<<<<<
+ *                 m_i = i
+ *             elif curr == m:
+ */
+        __pyx_v_c = 1;
+
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":64
+ *                 m = curr
+ *                 c = 1
+ *                 m_i = i             # <<<<<<<<<<<<<<
+ *             elif curr == m:
+ *                 c += 1
+ */
+        __pyx_v_m_i = __pyx_v_i;
+
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":61
+ *         curr = vec[i]
+ *         if not isnan(curr):
+ *             if curr > m or c == 0:             # <<<<<<<<<<<<<<
+ *                 m = curr
+ *                 c = 1
+ */
+        goto __pyx_L6;
+      }
+
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":65
+ *                 c = 1
+ *                 m_i = i
+ *             elif curr == m:             # <<<<<<<<<<<<<<
+ *                 c += 1
+ *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
+ */
+      __pyx_t_4 = ((__pyx_v_curr == __pyx_v_m) != 0);
+      if (__pyx_t_4) {
+
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":66
+ *                 m_i = i
+ *             elif curr == m:
+ *                 c += 1             # <<<<<<<<<<<<<<
+ *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
+ *                     m_i = i
+ */
+        __pyx_v_c = (__pyx_v_c + 1);
+
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":67
+ *             elif curr == m:
+ *                 c += 1
+ *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:             # <<<<<<<<<<<<<<
+ *                     m_i = i
+ *     return m_i
+ */
+        __pyx_t_4 = (((1 + ((int)(((1.0 * __pyx_v_c) * rand()) / RAND_MAX))) == __pyx_v_c) != 0);
+        if (__pyx_t_4) {
+
+          /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":68
+ *                 c += 1
+ *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
+ *                     m_i = i             # <<<<<<<<<<<<<<
+ *     return m_i
+ * 
+ */
+          __pyx_v_m_i = __pyx_v_i;
+
+          /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":67
+ *             elif curr == m:
+ *                 c += 1
+ *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:             # <<<<<<<<<<<<<<
+ *                     m_i = i
+ *     return m_i
+ */
+        }
+
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":65
+ *                 c = 1
+ *                 m_i = i
+ *             elif curr == m:             # <<<<<<<<<<<<<<
+ *                 c += 1
+ *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
+ */
+      }
+      __pyx_L6:;
+
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":60
+ *     for i in range(vec.shape[0]):
+ *         curr = vec[i]
+ *         if not isnan(curr):             # <<<<<<<<<<<<<<
+ *             if curr > m or c == 0:
+ *                 m = curr
+ */
+    }
+  }
+
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":69
+ *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
+ *                     m_i = i
+ *     return m_i             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_r = __pyx_v_m_i;
+  goto __pyx_L0;
+
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":52
+ * @boundscheck(False)
+ * @cdivision(True)
+ * cdef Py_ssize_t argmaxrnd_float(np.ndarray[np.float_t, ndim=1] vec):             # <<<<<<<<<<<<<<
+ *     cdef:
+ *         Py_ssize_t i, m_i
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_vec.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_WriteUnraisable("orangecontrib.prototypes.rule_learning._argmaxrnd.argmaxrnd_float", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __pyx_r = 0;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_vec.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":74
+ * @boundscheck(False)
+ * @cdivision(True)
  * cdef Py_ssize_t argmaxrnd_int(np.ndarray[np.int_t, ndim=1] vec):             # <<<<<<<<<<<<<<
  *     cdef:
- *         Py_ssize_t i
+ *         Py_ssize_t i, m_i = 0
  */
 
 static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_argmaxrnd_int(PyArrayObject *__pyx_v_vec) {
@@ -1803,7 +2039,8 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
   Py_ssize_t __pyx_t_1;
   npy_intp __pyx_t_2;
   Py_ssize_t __pyx_t_3;
-  int __pyx_t_4;
+  Py_ssize_t __pyx_t_4;
+  int __pyx_t_5;
   __Pyx_RefNannySetupContext("argmaxrnd_int", 0);
   __pyx_pybuffer_vec.pybuffer.buf = NULL;
   __pyx_pybuffer_vec.refcount = 0;
@@ -1811,71 +2048,72 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
   __pyx_pybuffernd_vec.rcbuffer = &__pyx_pybuffer_vec;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vec.rcbuffer->pybuffer, (PyObject*)__pyx_v_vec, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 52, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vec.rcbuffer->pybuffer, (PyObject*)__pyx_v_vec, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 74, __pyx_L1_error)
   }
   __pyx_pybuffernd_vec.diminfo[0].strides = __pyx_pybuffernd_vec.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vec.diminfo[0].shape = __pyx_pybuffernd_vec.rcbuffer->pybuffer.shape[0];
 
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":60
- *         np.int_t m
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":76
+ * cdef Py_ssize_t argmaxrnd_int(np.ndarray[np.int_t, ndim=1] vec):
+ *     cdef:
+ *         Py_ssize_t i, m_i = 0             # <<<<<<<<<<<<<<
+ *         int c = 1
+ *         np.int_t curr, m = vec[0]
+ */
+  __pyx_v_m_i = 0;
+
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":77
+ *     cdef:
+ *         Py_ssize_t i, m_i = 0
+ *         int c = 1             # <<<<<<<<<<<<<<
+ *         np.int_t curr, m = vec[0]
  * 
- *     m = vec[0]             # <<<<<<<<<<<<<<
- *     c = 1
- *     m_i = 0
+ */
+  __pyx_v_c = 1;
+
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":78
+ *         Py_ssize_t i, m_i = 0
+ *         int c = 1
+ *         np.int_t curr, m = vec[0]             # <<<<<<<<<<<<<<
+ * 
+ *     for i in range(1, vec.shape[0]):
  */
   __pyx_t_1 = 0;
   if (__pyx_t_1 < 0) __pyx_t_1 += __pyx_pybuffernd_vec.diminfo[0].shape;
   __pyx_v_m = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_int_t *, __pyx_pybuffernd_vec.rcbuffer->pybuffer.buf, __pyx_t_1, __pyx_pybuffernd_vec.diminfo[0].strides));
 
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":61
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":80
+ *         np.int_t curr, m = vec[0]
  * 
- *     m = vec[0]
- *     c = 1             # <<<<<<<<<<<<<<
- *     m_i = 0
- *     for i from 1 <= i < vec.shape[0]:
- */
-  __pyx_v_c = 1;
-
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":62
- *     m = vec[0]
- *     c = 1
- *     m_i = 0             # <<<<<<<<<<<<<<
- *     for i from 1 <= i < vec.shape[0]:
- *         curr = vec[i]
- */
-  __pyx_v_m_i = 0;
-
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":63
- *     c = 1
- *     m_i = 0
- *     for i from 1 <= i < vec.shape[0]:             # <<<<<<<<<<<<<<
+ *     for i in range(1, vec.shape[0]):             # <<<<<<<<<<<<<<
  *         curr = vec[i]
  *         if curr > m:
  */
   __pyx_t_2 = (__pyx_v_vec->dimensions[0]);
-  for (__pyx_v_i = 1; __pyx_v_i < __pyx_t_2; __pyx_v_i++) {
+  for (__pyx_t_3 = 1; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
+    __pyx_v_i = __pyx_t_3;
 
-    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":64
- *     m_i = 0
- *     for i from 1 <= i < vec.shape[0]:
+    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":81
+ * 
+ *     for i in range(1, vec.shape[0]):
  *         curr = vec[i]             # <<<<<<<<<<<<<<
  *         if curr > m:
  *             m = curr
  */
-    __pyx_t_3 = __pyx_v_i;
-    if (__pyx_t_3 < 0) __pyx_t_3 += __pyx_pybuffernd_vec.diminfo[0].shape;
-    __pyx_v_curr = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_int_t *, __pyx_pybuffernd_vec.rcbuffer->pybuffer.buf, __pyx_t_3, __pyx_pybuffernd_vec.diminfo[0].strides));
+    __pyx_t_4 = __pyx_v_i;
+    if (__pyx_t_4 < 0) __pyx_t_4 += __pyx_pybuffernd_vec.diminfo[0].shape;
+    __pyx_v_curr = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_int_t *, __pyx_pybuffernd_vec.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_vec.diminfo[0].strides));
 
-    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":65
- *     for i from 1 <= i < vec.shape[0]:
+    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":82
+ *     for i in range(1, vec.shape[0]):
  *         curr = vec[i]
  *         if curr > m:             # <<<<<<<<<<<<<<
  *             m = curr
  *             c = 1
  */
-    __pyx_t_4 = ((__pyx_v_curr > __pyx_v_m) != 0);
-    if (__pyx_t_4) {
+    __pyx_t_5 = ((__pyx_v_curr > __pyx_v_m) != 0);
+    if (__pyx_t_5) {
 
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":66
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":83
  *         curr = vec[i]
  *         if curr > m:
  *             m = curr             # <<<<<<<<<<<<<<
@@ -1884,7 +2122,7 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
  */
       __pyx_v_m = __pyx_v_curr;
 
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":67
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":84
  *         if curr > m:
  *             m = curr
  *             c = 1             # <<<<<<<<<<<<<<
@@ -1893,7 +2131,7 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
  */
       __pyx_v_c = 1;
 
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":68
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":85
  *             m = curr
  *             c = 1
  *             m_i = i             # <<<<<<<<<<<<<<
@@ -1902,8 +2140,8 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
  */
       __pyx_v_m_i = __pyx_v_i;
 
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":65
- *     for i from 1 <= i < vec.shape[0]:
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":82
+ *     for i in range(1, vec.shape[0]):
  *         curr = vec[i]
  *         if curr > m:             # <<<<<<<<<<<<<<
  *             m = curr
@@ -1912,17 +2150,17 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
       goto __pyx_L5;
     }
 
-    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":69
+    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":86
  *             c = 1
  *             m_i = i
  *         elif curr == m:             # <<<<<<<<<<<<<<
  *             c += 1
  *             if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
  */
-    __pyx_t_4 = ((__pyx_v_curr == __pyx_v_m) != 0);
-    if (__pyx_t_4) {
+    __pyx_t_5 = ((__pyx_v_curr == __pyx_v_m) != 0);
+    if (__pyx_t_5) {
 
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":70
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":87
  *             m_i = i
  *         elif curr == m:
  *             c += 1             # <<<<<<<<<<<<<<
@@ -1931,26 +2169,25 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
  */
       __pyx_v_c = (__pyx_v_c + 1);
 
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":71
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":88
  *         elif curr == m:
  *             c += 1
  *             if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:             # <<<<<<<<<<<<<<
  *                 m_i = i
  *     return m_i
  */
-      __pyx_t_4 = (((1 + ((int)(((1.0 * __pyx_v_c) * rand()) / RAND_MAX))) == __pyx_v_c) != 0);
-      if (__pyx_t_4) {
+      __pyx_t_5 = (((1 + ((int)(((1.0 * __pyx_v_c) * rand()) / RAND_MAX))) == __pyx_v_c) != 0);
+      if (__pyx_t_5) {
 
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":72
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":89
  *             c += 1
  *             if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
  *                 m_i = i             # <<<<<<<<<<<<<<
  *     return m_i
- * 
  */
         __pyx_v_m_i = __pyx_v_i;
 
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":71
+        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":88
  *         elif curr == m:
  *             c += 1
  *             if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:             # <<<<<<<<<<<<<<
@@ -1959,7 +2196,7 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
  */
       }
 
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":69
+      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":86
  *             c = 1
  *             m_i = i
  *         elif curr == m:             # <<<<<<<<<<<<<<
@@ -1970,22 +2207,20 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
     __pyx_L5:;
   }
 
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":73
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":90
  *             if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
  *                 m_i = i
  *     return m_i             # <<<<<<<<<<<<<<
- * 
- * 
  */
   __pyx_r = __pyx_v_m_i;
   goto __pyx_L0;
 
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":52
+  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":74
  * @boundscheck(False)
  * @cdivision(True)
  * cdef Py_ssize_t argmaxrnd_int(np.ndarray[np.int_t, ndim=1] vec):             # <<<<<<<<<<<<<<
  *     cdef:
- *         Py_ssize_t i
+ *         Py_ssize_t i, m_i = 0
  */
 
   /* function exit code */
@@ -1997,290 +2232,6 @@ static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmax
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_vec.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
   __Pyx_WriteUnraisable("orangecontrib.prototypes.rule_learning._argmaxrnd.argmaxrnd_int", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
-  __pyx_r = 0;
-  goto __pyx_L2;
-  __pyx_L0:;
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_vec.rcbuffer->pybuffer);
-  __pyx_L2:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":78
- * @boundscheck(False)
- * @cdivision(True)
- * cdef Py_ssize_t argmaxrnd_float(np.ndarray[np.float_t, ndim=1] vec):             # <<<<<<<<<<<<<<
- *     cdef:
- *         Py_ssize_t i
- */
-
-static Py_ssize_t __pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_argmaxrnd_float(PyArrayObject *__pyx_v_vec) {
-  Py_ssize_t __pyx_v_i;
-  Py_ssize_t __pyx_v_m_i;
-  int __pyx_v_c;
-  __pyx_t_5numpy_float_t __pyx_v_curr;
-  __pyx_t_5numpy_float_t *__pyx_v_m;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd_vec;
-  __Pyx_Buffer __pyx_pybuffer_vec;
-  Py_ssize_t __pyx_r;
-  __Pyx_RefNannyDeclarations
-  npy_intp __pyx_t_1;
-  Py_ssize_t __pyx_t_2;
-  int __pyx_t_3;
-  __Pyx_RefNannySetupContext("argmaxrnd_float", 0);
-  __pyx_pybuffer_vec.pybuffer.buf = NULL;
-  __pyx_pybuffer_vec.refcount = 0;
-  __pyx_pybuffernd_vec.data = NULL;
-  __pyx_pybuffernd_vec.rcbuffer = &__pyx_pybuffer_vec;
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_vec.rcbuffer->pybuffer, (PyObject*)__pyx_v_vec, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 78, __pyx_L1_error)
-  }
-  __pyx_pybuffernd_vec.diminfo[0].strides = __pyx_pybuffernd_vec.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_vec.diminfo[0].shape = __pyx_pybuffernd_vec.rcbuffer->pybuffer.shape[0];
-
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":86
- *         np.float_t *m
- * 
- *     m = NULL             # <<<<<<<<<<<<<<
- *     for i from 0 <= i < vec.shape[0]:
- *         curr = vec[i]
- */
-  __pyx_v_m = NULL;
-
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":87
- * 
- *     m = NULL
- *     for i from 0 <= i < vec.shape[0]:             # <<<<<<<<<<<<<<
- *         curr = vec[i]
- *         if not isnan(curr):
- */
-  __pyx_t_1 = (__pyx_v_vec->dimensions[0]);
-  for (__pyx_v_i = 0; __pyx_v_i < __pyx_t_1; __pyx_v_i++) {
-
-    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":88
- *     m = NULL
- *     for i from 0 <= i < vec.shape[0]:
- *         curr = vec[i]             # <<<<<<<<<<<<<<
- *         if not isnan(curr):
- *             if not m:
- */
-    __pyx_t_2 = __pyx_v_i;
-    if (__pyx_t_2 < 0) __pyx_t_2 += __pyx_pybuffernd_vec.diminfo[0].shape;
-    __pyx_v_curr = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_float_t *, __pyx_pybuffernd_vec.rcbuffer->pybuffer.buf, __pyx_t_2, __pyx_pybuffernd_vec.diminfo[0].strides));
-
-    /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":89
- *     for i from 0 <= i < vec.shape[0]:
- *         curr = vec[i]
- *         if not isnan(curr):             # <<<<<<<<<<<<<<
- *             if not m:
- *                 m = <np.float_t *>malloc(1 * sizeof(np.float_t))
- */
-    __pyx_t_3 = ((!(__pyx_f_13orangecontrib_10prototypes_13rule_learning_10_argmaxrnd_isnan(__pyx_v_curr) != 0)) != 0);
-    if (__pyx_t_3) {
-
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":90
- *         curr = vec[i]
- *         if not isnan(curr):
- *             if not m:             # <<<<<<<<<<<<<<
- *                 m = <np.float_t *>malloc(1 * sizeof(np.float_t))
- *                 m[0] = curr
- */
-      __pyx_t_3 = ((!(__pyx_v_m != 0)) != 0);
-      if (__pyx_t_3) {
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":91
- *         if not isnan(curr):
- *             if not m:
- *                 m = <np.float_t *>malloc(1 * sizeof(np.float_t))             # <<<<<<<<<<<<<<
- *                 m[0] = curr
- *                 c = 1
- */
-        __pyx_v_m = ((__pyx_t_5numpy_float_t *)malloc((1 * (sizeof(__pyx_t_5numpy_float_t)))));
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":92
- *             if not m:
- *                 m = <np.float_t *>malloc(1 * sizeof(np.float_t))
- *                 m[0] = curr             # <<<<<<<<<<<<<<
- *                 c = 1
- *                 m_i = i
- */
-        (__pyx_v_m[0]) = __pyx_v_curr;
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":93
- *                 m = <np.float_t *>malloc(1 * sizeof(np.float_t))
- *                 m[0] = curr
- *                 c = 1             # <<<<<<<<<<<<<<
- *                 m_i = i
- *             elif curr > m[0]:
- */
-        __pyx_v_c = 1;
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":94
- *                 m[0] = curr
- *                 c = 1
- *                 m_i = i             # <<<<<<<<<<<<<<
- *             elif curr > m[0]:
- *                 m[0] = curr
- */
-        __pyx_v_m_i = __pyx_v_i;
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":90
- *         curr = vec[i]
- *         if not isnan(curr):
- *             if not m:             # <<<<<<<<<<<<<<
- *                 m = <np.float_t *>malloc(1 * sizeof(np.float_t))
- *                 m[0] = curr
- */
-        goto __pyx_L6;
-      }
-
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":95
- *                 c = 1
- *                 m_i = i
- *             elif curr > m[0]:             # <<<<<<<<<<<<<<
- *                 m[0] = curr
- *                 c = 1
- */
-      __pyx_t_3 = ((__pyx_v_curr > (__pyx_v_m[0])) != 0);
-      if (__pyx_t_3) {
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":96
- *                 m_i = i
- *             elif curr > m[0]:
- *                 m[0] = curr             # <<<<<<<<<<<<<<
- *                 c = 1
- *                 m_i = i
- */
-        (__pyx_v_m[0]) = __pyx_v_curr;
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":97
- *             elif curr > m[0]:
- *                 m[0] = curr
- *                 c = 1             # <<<<<<<<<<<<<<
- *                 m_i = i
- *             elif curr == m[0]:
- */
-        __pyx_v_c = 1;
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":98
- *                 m[0] = curr
- *                 c = 1
- *                 m_i = i             # <<<<<<<<<<<<<<
- *             elif curr == m[0]:
- *                 c += 1
- */
-        __pyx_v_m_i = __pyx_v_i;
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":95
- *                 c = 1
- *                 m_i = i
- *             elif curr > m[0]:             # <<<<<<<<<<<<<<
- *                 m[0] = curr
- *                 c = 1
- */
-        goto __pyx_L6;
-      }
-
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":99
- *                 c = 1
- *                 m_i = i
- *             elif curr == m[0]:             # <<<<<<<<<<<<<<
- *                 c += 1
- *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
- */
-      __pyx_t_3 = ((__pyx_v_curr == (__pyx_v_m[0])) != 0);
-      if (__pyx_t_3) {
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":100
- *                 m_i = i
- *             elif curr == m[0]:
- *                 c += 1             # <<<<<<<<<<<<<<
- *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
- *                     m_i = i
- */
-        __pyx_v_c = (__pyx_v_c + 1);
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":101
- *             elif curr == m[0]:
- *                 c += 1
- *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:             # <<<<<<<<<<<<<<
- *                     m_i = i
- *     free(m)
- */
-        __pyx_t_3 = (((1 + ((int)(((1.0 * __pyx_v_c) * rand()) / RAND_MAX))) == __pyx_v_c) != 0);
-        if (__pyx_t_3) {
-
-          /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":102
- *                 c += 1
- *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
- *                     m_i = i             # <<<<<<<<<<<<<<
- *     free(m)
- *     return m_i
- */
-          __pyx_v_m_i = __pyx_v_i;
-
-          /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":101
- *             elif curr == m[0]:
- *                 c += 1
- *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:             # <<<<<<<<<<<<<<
- *                     m_i = i
- *     free(m)
- */
-        }
-
-        /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":99
- *                 c = 1
- *                 m_i = i
- *             elif curr == m[0]:             # <<<<<<<<<<<<<<
- *                 c += 1
- *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
- */
-      }
-      __pyx_L6:;
-
-      /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":89
- *     for i from 0 <= i < vec.shape[0]:
- *         curr = vec[i]
- *         if not isnan(curr):             # <<<<<<<<<<<<<<
- *             if not m:
- *                 m = <np.float_t *>malloc(1 * sizeof(np.float_t))
- */
-    }
-  }
-
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":103
- *                 if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
- *                     m_i = i
- *     free(m)             # <<<<<<<<<<<<<<
- *     return m_i
- */
-  free(__pyx_v_m);
-
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":104
- *                     m_i = i
- *     free(m)
- *     return m_i             # <<<<<<<<<<<<<<
- */
-  __pyx_r = __pyx_v_m_i;
-  goto __pyx_L0;
-
-  /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":78
- * @boundscheck(False)
- * @cdivision(True)
- * cdef Py_ssize_t argmaxrnd_float(np.ndarray[np.float_t, ndim=1] vec):             # <<<<<<<<<<<<<<
- *     cdef:
- *         Py_ssize_t i
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_vec.rcbuffer->pybuffer);
-  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_WriteUnraisable("orangecontrib.prototypes.rule_learning._argmaxrnd.argmaxrnd_float", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
   __pyx_r = 0;
   goto __pyx_L2;
   __pyx_L0:;
@@ -4435,7 +4386,7 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_kp_s_A_1D_array_of_shape_n_is_expecte, __pyx_k_A_1D_array_of_shape_n_is_expecte, sizeof(__pyx_k_A_1D_array_of_shape_n_is_expecte), 0, 0, 1, 0},
+  {&__pyx_kp_s_1D_array_of_shape_n_is_expected, __pyx_k_1D_array_of_shape_n_is_expected, sizeof(__pyx_k_1D_array_of_shape_n_is_expected), 0, 0, 1, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
@@ -4468,7 +4419,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 32, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 231, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 58, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 799, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -4482,11 +4433,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":32
  * 
  *     if vec.ndim != 1:
- *         raise ValueError("A 1D array of shape (n,) is expected.")             # <<<<<<<<<<<<<<
+ *         raise ValueError("1D array of shape (n,) is expected.")             # <<<<<<<<<<<<<<
  * 
  *     if random_seed is not None:
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_A_1D_array_of_shape_n_is_expecte); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_1D_array_of_shape_n_is_expected); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
@@ -4559,7 +4510,7 @@ static int __Pyx_InitCachedConstants(void) {
   /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":12
  * 
  * 
- * def argmaxrnd(np.ndarray vec not None, object random_seed=None):             # <<<<<<<<<<<<<<
+ * def argmaxrnd(np.ndarray vec, object random_seed=None):             # <<<<<<<<<<<<<<
  * 
  *     """
  */
@@ -4713,7 +4664,7 @@ PyMODINIT_FUNC PyInit__argmaxrnd(void)
  * from cython import boundscheck, cdivision
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
- * from libc.stdlib cimport rand, srand, RAND_MAX, malloc, free
+ * from libc.stdlib cimport rand, srand, RAND_MAX
  */
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -4723,7 +4674,7 @@ PyMODINIT_FUNC PyInit__argmaxrnd(void)
   /* "orangecontrib/prototypes/rule_learning/_argmaxrnd.pyx":12
  * 
  * 
- * def argmaxrnd(np.ndarray vec not None, object random_seed=None):             # <<<<<<<<<<<<<<
+ * def argmaxrnd(np.ndarray vec, object random_seed=None):             # <<<<<<<<<<<<<<
  * 
  *     """
  */
@@ -6269,6 +6220,33 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
         }\
         return (target_type) value;\
     }
+
+/* CIntToPy */
+          static CYTHON_INLINE PyObject* __Pyx_PyInt_From_Py_intptr_t(Py_intptr_t value) {
+    const Py_intptr_t neg_one = (Py_intptr_t) -1, const_zero = (Py_intptr_t) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(Py_intptr_t) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(Py_intptr_t) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(Py_intptr_t) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+        }
+    } else {
+        if (sizeof(Py_intptr_t) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(Py_intptr_t) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(Py_intptr_t),
+                                     little, !is_unsigned);
+    }
+}
 
 /* None */
           #if CYTHON_CCOMPLEX

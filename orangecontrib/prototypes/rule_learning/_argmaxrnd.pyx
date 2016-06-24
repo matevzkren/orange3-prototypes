@@ -2,14 +2,14 @@ from hashlib import sha1
 from cython import boundscheck, cdivision
 import numpy as np
 cimport numpy as np
-from libc.stdlib cimport rand, srand, RAND_MAX, malloc, free
+from libc.stdlib cimport rand, srand, RAND_MAX
 
 
 cdef inline bint isnan(np.float_t x) nogil:
     return x != x
 
 
-def argmaxrnd(np.ndarray vec not None, object random_seed=None):
+def argmaxrnd(np.ndarray vec, object random_seed=None):
 
     """
     Returns the index of the maximum value for a given 1D array.
@@ -29,7 +29,7 @@ def argmaxrnd(np.ndarray vec not None, object random_seed=None):
     """
 
     if vec.ndim != 1:
-        raise ValueError("A 1D array of shape (n,) is expected.")
+        raise ValueError("1D array of shape (n,) is expected..")
 
     if random_seed is not None:
         if random_seed == -1:
@@ -49,18 +49,35 @@ def argmaxrnd(np.ndarray vec not None, object random_seed=None):
 
 @boundscheck(False)
 @cdivision(True)
+cdef Py_ssize_t argmaxrnd_float(np.ndarray[np.float_t, ndim=1] vec):
+    cdef:
+        Py_ssize_t i, m_i
+        int c = 0
+        np.float_t curr, m
+
+    for i in range(vec.shape[0]):
+        curr = vec[i]
+        if not isnan(curr):
+            if curr > m or c == 0:
+                m = curr
+                c = 1
+                m_i = i
+            elif curr == m:
+                c += 1
+                if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
+                    m_i = i
+    return m_i
+
+
+@boundscheck(False)
+@cdivision(True)
 cdef Py_ssize_t argmaxrnd_int(np.ndarray[np.int_t, ndim=1] vec):
     cdef:
-        Py_ssize_t i
-        Py_ssize_t m_i
-        int c
-        np.int_t curr
-        np.int_t m
+        Py_ssize_t i, m_i = 0
+        int c = 1
+        np.int_t curr, m = vec[0]
 
-    m = vec[0]
-    c = 1
-    m_i = 0
-    for i from 1 <= i < vec.shape[0]:
+    for i in range(1, vec.shape[0]):
         curr = vec[i]
         if curr > m:
             m = curr
@@ -70,35 +87,4 @@ cdef Py_ssize_t argmaxrnd_int(np.ndarray[np.int_t, ndim=1] vec):
             c += 1
             if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
                 m_i = i
-    return m_i
-
-
-@boundscheck(False)
-@cdivision(True)
-cdef Py_ssize_t argmaxrnd_float(np.ndarray[np.float_t, ndim=1] vec):
-    cdef:
-        Py_ssize_t i
-        Py_ssize_t m_i
-        int c
-        np.float_t curr
-        np.float_t *m
-
-    m = NULL
-    for i from 0 <= i < vec.shape[0]:
-        curr = vec[i]
-        if not isnan(curr):
-            if not m:
-                m = <np.float_t *>malloc(1 * sizeof(np.float_t))
-                m[0] = curr
-                c = 1
-                m_i = i
-            elif curr > m[0]:
-                m[0] = curr
-                c = 1
-                m_i = i
-            elif curr == m[0]:
-                c += 1
-                if 1 + <int>(1.0 * c * rand() / RAND_MAX) == c:
-                    m_i = i
-    free(m)
     return m_i
